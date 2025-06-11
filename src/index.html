@@ -7,24 +7,33 @@
    
 </head>
 <body>
-    <h1>Weather App</h1>
-    <p>Welcome to the weather app!</p>
+    <div class="title">
+        <h1>Weather App</h1>
+        <p>Welcome to the weather app!</p>
+    </div>
 
     <div class="search-container">
         <input type="text" class="search-bar" placeholder="Search...">
         <button class="search-button">Search</button>
     </div>
 
-    <label>
-        <input type="checkbox" id="unit-toggle">
-        Show in Celsius
-    </label>
+
 
     <div class="weather-container">
         <h1 class="name">London</h1>
-        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis molestiae, sequi unde dolores quibusdam natus doloribus distinctio maiores tenetur suscipit iure odio incidunt, in aliquid facere, libero nulla aspernatur hic.</p>
-        <p class="temperature">15</p>
-        <p class="unit">C</p>
+        <p class="temperature"><span class="temp-value">15</span>°</p>
+        <p class="status">Clear</p>
+        <p class="wind">Wind: <span class="wind-value">12</span> km/h</p>
+        <p class="humidity">Humidity: <span class="humidity-value">60</span>%</p>
+
+
+        <label class="switch">
+            <input type="checkbox" class="unit-toggle">
+            <span class="slider round">
+                <span class="label-c">°C</span>
+                <span class="label-f">°F</span>
+        </span>
+    </label>
     </div>
    
 </body>

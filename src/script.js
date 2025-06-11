@@ -3,6 +3,7 @@ import './styles.css';
 
 let city = "London"; 
 let temp_unit = "metric";
+let isMetric = true;
 
 
 const input = document.querySelector(".search-container .search-bar");
@@ -10,8 +11,26 @@ const button = document.querySelector(".search-container .search-button");
 
 button.addEventListener("click", () => {
     city = input.value.trim();
-    displayWeather(city);
+    if (!city){
+        alert("Please enter a location");
+        return;
+    }
+    displayWeather(city); 
 });
+
+const toggle = document.querySelector(".unit-toggle");
+
+toggle.addEventListener("change", () => {
+    if (isMetric){
+        temp_unit = "us";
+        isMetric = false;
+    }else{
+        temp_unit = "metric";
+        isMetric = true;
+    }
+
+    displayWeather(city);
+})
 
 async function getWeather(location = city, unit = temp_unit) {
     city = location;
@@ -34,8 +53,13 @@ async function displayWeather(location = city) {
     const temperature = document.querySelector(".weather-container .temperature");
     temperature.textContent = weather.currentConditions.temp;
 
-    const temp_unit = document.querySelector(".weather-container .unit");
+    const tempUnitElement = document.querySelector(".weather-container .unit");
 
+    if (isMetric){
+        tempUnitElement.textContent = "C";
+    }else{
+        tempUnitElement.textContent = "F";
+    }
 
 }
 
