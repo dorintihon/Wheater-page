@@ -4,6 +4,7 @@ import './styles.css';
 let city = "London"; 
 let temp_unit = "metric";
 let isMetric = true;
+const weatherCache = {};
 
 
 const input = document.querySelector(".search-container .search-bar");
@@ -33,9 +34,14 @@ toggle.addEventListener("change", () => {
 })
 
 async function getWeather(location = city, unit = temp_unit) {
-    city = location;
+    const key = `${location}-${unit}`;
+    if(weatherCache[key]){
+        console.log("Returning cached data for:", key);
+        return weatherCache[key];
+    }
     const response = await fetch(`https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${city}?unitGroup=${unit}&key=ZHLBTM3GFTKBVQWGUTAAR3UFN&contentType=json`);
     const data = await response.json(); 
+    weatherCache[key] = data;
 
     return data;
 }
@@ -47,19 +53,19 @@ async function displayWeather(location = city) {
     name.textContent = weather.resolvedAddress;
 ;
 
-    const description = document.querySelector(".weather-container .description");
-    description.textContent = weather.description;
+    // const description = document.querySelector(".weather-container .description");
+    // description.textContent = weather.description;
 
-    const temperature = document.querySelector(".weather-container .temperature");
+    const temperature = document.querySelector(".weather-container .temp-value");
     temperature.textContent = weather.currentConditions.temp;
 
-    const tempUnitElement = document.querySelector(".weather-container .unit");
+    // const tempUnitElement = document.querySelector(".weather-container .unit");
 
-    if (isMetric){
-        tempUnitElement.textContent = "C";
-    }else{
-        tempUnitElement.textContent = "F";
-    }
+    // if (isMetric){
+    //     tempUnitElement.textContent = "C";
+    // }else{
+    //     tempUnitElement.textContent = "F";
+    // }
 
 }
 
